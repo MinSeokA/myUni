@@ -10,6 +10,11 @@ export default {
         changeOrigin: true, // 호스트 헤더를 타겟 URL로 변경
         pathRewrite: { '^/cdn': '' }, // '/cdn' 경로를 제거
       },
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' },
+      },
     },
   },
 }

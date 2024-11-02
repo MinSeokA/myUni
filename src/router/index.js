@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import AuthCallback from '@/views/AuthCallback.vue'
+import { useAuth } from '@/composables/useAuth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,10 +14,8 @@ const router = createRouter({
     {
       path: '/my',
       name: 'my',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/profile.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/:userUrl',
@@ -23,7 +23,22 @@ const router = createRouter({
       component: () => import('../views/myView.vue'),
       props: true,
     },
+    { path: '/auth-callback', name: 'AuthCallback', component: AuthCallback },
   ],
+})
+
+// 라우트 가드 설정
+router.beforeEach((to, from, next) => {
+  const { isAuthenticated, checkAuth } = useAuth()
+  checkAuth() // 로그인 상태 확인
+
+  if (to.meta.requiresAuth && !isAuthenticated.value) {
+    next({ name: 'home' })
+  } else if (to.name === 'home' && isAuthenticated.value) {
+    next({ name: 'my' })
+  } else {
+    next()
+  }
 })
 
 export default router

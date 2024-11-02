@@ -9,7 +9,23 @@ const currentDate = new Date();
 const hour = `${currentDate.getHours()}`;
 const minute = `${currentDate.getMinutes()}`;
 
+
 // 포맷팅된 날짜와 시간을 출력
+</script>
+
+<script>
+import { useAuth } from '@/composables/useAuth';
+import { onMounted } from 'vue';
+
+export default {
+  setup() {
+    const { checkAuth } = useAuth();
+
+    onMounted(() => {
+      checkAuth(); // 앱 로드 시 초기 인증 상태 설정
+    });
+  },
+};
 </script>
 
 <template>
