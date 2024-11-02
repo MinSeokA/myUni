@@ -146,7 +146,7 @@
 
 <script>
 import Card from '../components/card.vue';
-import HorizontalCard from '../components/HorizontalCard.vue';
+import HorizontalCard from '../components/horizontalcard.vue';
 
 export default {
   components: {
