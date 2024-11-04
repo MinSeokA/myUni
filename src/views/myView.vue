@@ -53,13 +53,13 @@ export default {
     };
   },
   created() {
-    this.fetchUserData(this.userUrl);
+    this.fetchUserData(this.userId);
   },
   methods: {
-    async fetchUserData(userUrl) {
+    async fetchUserData(userId) {
       try {
         // 서버에서 사용자 데이터를 가져옴 (예: /api/user/:userUrl)
-        const response = await fetch(`/api/user/${userUrl}`);
+        const response = await fetch(`/user/public/${userId}`);
         const data = await response.json();
 
         // 받아온 데이터를 컴포넌트의 상태에 저장

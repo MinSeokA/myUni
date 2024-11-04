@@ -7,7 +7,7 @@ const currentDate = new Date();
 
 // 날짜와 시간을 문자열로 포맷팅
 const hour = `${currentDate.getHours()}`;
-const minute = `${currentDate.getMinutes()}`;
+const minute = `${currentDate.getMinutes()}`.padStart(2, '0');
 
 
 // 포맷팅된 날짜와 시간을 출력

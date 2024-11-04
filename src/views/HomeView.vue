@@ -38,7 +38,7 @@ export default {
     },
     loginWithGoogle() {
       // 백엔드의 Google OAuth 엔드포인트로 이동
-      window.location.href = 'http://localhost:3000/auth/google';
+      window.location.href = 'https://myuni-api.lunaiz.com/auth/google';
     },
   },
 };

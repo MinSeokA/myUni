@@ -11,7 +11,7 @@ export default {
         pathRewrite: { '^/cdn': '' }, // '/cdn' 경로를 제거
       },
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://myuni-api.lunaiz.com/',
         changeOrigin: true,
         pathRewrite: { '^/api': '' },
       },

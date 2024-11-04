@@ -141,6 +141,10 @@ import Card from '../components/card.vue';
 import HorizontalCard from '../components/horizontalcard.vue';
 import api from '@/plugins/axios';
 
+const data = {
+  api
+}
+
 export default {
   components: { Card, HorizontalCard },
   data() {
@@ -170,7 +174,7 @@ export default {
   methods: {
     async fetchProfile() {
       try {
-        const response = await api.get('/user/my-profile');
+        const response = await api.get('/user/' + data.user.userId);
         this.profile = response.data;
         this.sujiApplications = response.data.sujiApplications;
         this.jeongsiApplications = response.data.jeongsiApplications;

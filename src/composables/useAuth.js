@@ -18,7 +18,7 @@ function logout() {
 // 프로필 정보를 가져와 로그인 상태를 갱신하는 함수
 async function fetchProfile() {
   try {
-    const response = await api.get('/user/my-profile')
+    const response = await api.get('/user')
     isAuthenticated.value = true // 프로필이 성공적으로 로드되면 인증된 상태로 설정
     return response.data
   } catch (error) {
