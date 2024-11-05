@@ -2,7 +2,7 @@ import api from '@/plugins/axios' // 설정된 Axios 인스턴스
 
 export async function login(credentials) {
   try {
-    const response = await api.post('/auth/login', credentials)
+    const response = await api.post('/auth/google', credentials)
     const token = response.data.access_token
 
     if (token) {
