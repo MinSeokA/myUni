@@ -176,7 +176,7 @@ export default {
   methods: {
     async fetchProfile() {
       try {
-        const response = await api.get('/user/profile', {
+        const response = await api.post('/user/profile', {
           Headers: {
             authorization: `Bearer ${localStorage.getItem('token')}`,
           }
