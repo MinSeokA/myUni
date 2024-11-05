@@ -150,12 +150,14 @@ export default {
   data() {
     return {
       profile: {
-        profileName: '',
-        profilePhoto: '',
-        userUrl: '',
-        showPassFail: false,
-        showSuji: false,
-        showJeongsi: false,
+        userId: String,
+        name: String,
+        email: String,
+        photo: String,
+        customUrl: String,
+        isEarlyDecision: Boolean,
+        isRegularDecision: Boolean,
+        isAdmissionResult: Boolean,
       },
       sujiApplications: [],
       jeongsiApplications: [],
@@ -174,15 +176,29 @@ export default {
   methods: {
     async fetchProfile() {
       try {
-        const response = await api.get('/user/profile');
-        this.profile = response.data;
+        const response = await api.get('/api/v1/user/profile', {
+          Headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          }
+        });
+        const data = response.data;
+
+        if (data.status) {
+          this.profile = data.profile;
+          console.log('User profile:', this.profile);
+        } else {
+          alert(data.message);
+        }
+
+
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
     },
+    
     async saveProfile() {
       try {
-        await api.post('/user/update', this.profile);
+        await api.post('/api/v1/user/update', this.profile);
         alert('프로필이 저장되었습니다.');
       } catch (error) {
         console.error("Error updating profile:", error);
@@ -193,10 +209,18 @@ export default {
     },
     async checkCustomUrl() {
       try {
-        const response = await api.post('/user/custom-url', { customUrl: this.profile.userUrl });
-        if (response.data.success) {
-          alert('사용 가능한 URL입니다.');
-        }
+        const response = await api.post('/api/v1/user/custom-url', 
+        { Headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        data: { customUrl: this.profile.customUrl }
+      });
+      const data = response.data;
+      if (data.status) {
+        dh(data.message)
+      } else {
+        alert(data.message)
+      }
       } catch (error) {
         console.error("Error checking custom URL:", error);
       }
