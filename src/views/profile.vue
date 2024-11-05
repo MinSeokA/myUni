@@ -69,20 +69,20 @@
       저장
     </button>
 
-    <!-- 수시 지원 섹션 -->
+    <!-- Suji Application Section -->
     <div class="scroll-section h-full text-center pt-[5rem]" id="suji">
       <h2 class="text-2xl font-semibold text-gray-800 border-b border-gray-300 pb-2 mb-4">수시 지원</h2>
       <div class="grid grid-cols-3 gap-4 mt-8">
-        <!-- 기존 수시 지원 카드들 -->
-        <Card v-for="(university, index) in sujiApplications" :key="index" :university="university" />
-
-        <!-- 수시 등록 버튼 카드 -->
+        <!-- Existing Suji Application Cards -->
+        <Card v-for="(university, index) in profile.sujiApplications" :key="index" :university="university" />
+        <!-- Add Suji Application Button -->
         <div @click="openModal('수시')"
           class="bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition duration-150 ease-in-out">
           <span class="text-3xl font-bold text-gray-500">+</span>
         </div>
       </div>
     </div>
+
 
     <!-- 정시 지원 섹션 -->
     <div class="scroll-section h-full text-center pt-[5rem]" id="jeongsi">
@@ -174,20 +174,31 @@ export default {
   methods: {
     async fetchProfile() {
       try {
-        const response = await api.get('/user/' + data.user.userId);
+        const response = await api.get('/user/profile');
         this.profile = response.data;
-        this.sujiApplications = response.data.sujiApplications;
-        this.jeongsiApplications = response.data.jeongsiApplications;
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
     },
     async saveProfile() {
       try {
-        await api.put('/user/update-profile', this.profile);
-        console.log('Profile updated successfully');
+        await api.post('/user/update', this.profile);
+        alert('프로필이 저장되었습니다.');
       } catch (error) {
         console.error("Error updating profile:", error);
+      }
+    },
+    handleFileUpload(event) {
+      // Handle image upload logic
+    },
+    async checkCustomUrl() {
+      try {
+        const response = await api.post('/user/custom-url', { customUrl: this.profile.userUrl });
+        if (response.data.success) {
+          alert('사용 가능한 URL입니다.');
+        }
+      } catch (error) {
+        console.error("Error checking custom URL:", error);
       }
     },
     openModal(type) {
