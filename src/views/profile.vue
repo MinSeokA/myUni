@@ -176,7 +176,7 @@ export default {
   methods: {
     async fetchProfile() {
       try {
-        const response = await api.get('/api/v1/user/profile', {
+        const response = await api.get('/user/profile', {
           Headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           }
@@ -198,7 +198,7 @@ export default {
     
     async saveProfile() {
       try {
-        await api.post('/api/v1/user/update', this.profile);
+        await api.post('/user/update', this.profile);
         alert('프로필이 저장되었습니다.');
       } catch (error) {
         console.error("Error updating profile:", error);
@@ -209,7 +209,7 @@ export default {
     },
     async checkCustomUrl() {
       try {
-        const response = await api.post('/api/v1/user/custom-url', 
+        const response = await api.post('/user/custom-url', 
         { Headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
