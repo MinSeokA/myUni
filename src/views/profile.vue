@@ -178,7 +178,7 @@ export default {
       try {
         const response = await api.get('/user/profile', {
           Headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            authorization: `Bearer ${localStorage.getItem('token')}`,
           }
         });
         const data = response.data;
@@ -211,7 +211,7 @@ export default {
       try {
         const response = await api.post('/user/custom-url', 
         { Headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         data: { customUrl: this.profile.customUrl }
       });
